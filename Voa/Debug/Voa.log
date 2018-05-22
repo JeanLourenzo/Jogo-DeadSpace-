@@ -1,0 +1,5 @@
+﻿  Main.cpp
+c:\users\heavenly\desktop\voa\voa\main.cpp(14): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  Jogador.cpp
+  Gerando Código...
+  Voa.vcxproj -> C:\Users\Heavenly\Desktop\Voa\Debug\Voa.exe
