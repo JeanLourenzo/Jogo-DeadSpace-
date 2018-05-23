@@ -1,5 +1,3 @@
 ﻿  Main.cpp
-c:\users\heavenly\desktop\voa\voa\main.cpp(14): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-  Jogador.cpp
-  Gerando Código...
-  Voa.vcxproj -> C:\Users\Heavenly\Desktop\Voa\Debug\Voa.exe
+d:\aqui\voa\voa\main.cpp(16): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  Voa.vcxproj -> D:\Aqui\Voa\Debug\Voa.exe

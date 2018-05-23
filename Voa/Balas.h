@@ -5,7 +5,7 @@ class Balas {
 
 public:
 
-	Balas(sf::Texture *textura);
+	Balas(sf::Texture *textura, sf::Vector2f posição);
 
 public:
 	

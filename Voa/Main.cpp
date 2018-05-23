@@ -1,12 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include "Jogador.h"
+#include "Inimigo.h"
 #include <vector>
 #include <iostream>
 #include <Math.h>
 #include <cstdlib>
 
 using namespace sf;
+
 
 int main()
 {
@@ -17,19 +19,25 @@ int main()
 	window.setFramerateLimit(60);
 
 
-	// Iniciando Texturas
+	// Lendo e iniciando texturas
 	sf::Texture NaveTexture;
-	NaveTexture.loadFromFile("Ship1.png");
+	NaveTexture.loadFromFile("Imagens/Ship1.png");
 
 	sf::Texture InimigoTexture;
-	InimigoTexture.loadFromFile("alien1.png");
+	InimigoTexture.loadFromFile("Imagens/alien1.png");
 	
 	sf::Texture Bala1;
-	Bala1.loadFromFile("bala1.png");
+	Bala1.loadFromFile("Imagens/bala1.png");
 
 
-	// Criando objeto Jogador
+	// Criando objeto jogador
 	Jogador p1(&NaveTexture);
+	int tempoAtirando = 20;
+
+	// Criando vetor para inimigos e o objeto inimigo
+	std::vector <Inimigo> inimigos;
+	inimigos.push_back(Inimigo(&InimigoTexture, window.getSize()));
+
 
 
 	while (window.isOpen())
@@ -52,7 +60,7 @@ int main()
 			p1.corpo.move(10.f, 0);
 
 
-		//Colisão para não sair da janela
+		//Checando para o player não sair da janela
 	if (p1.corpo.getPosition().x <= 0) //Esquerda
 		p1.corpo.setPosition(0.f, p1.corpo.getPosition().y);
 
@@ -65,30 +73,47 @@ int main()
 	if (p1.corpo.getPosition().y >= window.getSize().y - p1.corpo.getGlobalBounds().height) //Baixo
 		p1.corpo.setPosition(p1.corpo.getPosition().x, window.getSize().y - p1.corpo.getGlobalBounds().height);
 
-		//Tiros
-		if (sf::Mouse::isButtonPressed(Mouse::Left)) 
+
+	// Limitando os tiros
+
+	if (tempoAtirando < 20) {
+		tempoAtirando++;
+	}
+
+		if (sf::Keyboard::isKeyPressed(Keyboard::Space) && tempoAtirando >= 20) 
 		{
-		p1.balas.push_back(Balas(&Bala1));
+		p1.balas.push_back(Balas(&Bala1,p1.corpo.getPosition()));
+		tempoAtirando = 0; // Resetando 
 		}
 
-		// Balas fora da janela 
-		for (size_t i = 0; i < p1.balas.size(); i++) {
+		// Update do movimento das balas 
+		for (size_t i = 0; i < p1.balas.size(); i++)
+		{	
+			//Velocidade do tiro
+			p1.balas[i].corpo.move(20.0f, 0.f);
 
-			if (p1.balas[i].corpo.getPosition().x > window.getSize().x) {
-
+			// Apagando balas fora da janela
+			if (p1.balas[i].corpo.getPosition().x > window.getSize().x)
+			{
 				p1.balas.erase(p1.balas.begin() + i);
-
 			}
-
 		}
+		
+		// Imprimindo tudo na tela
 
 		window.clear();
 		window.draw(p1.corpo);
 
-		for (size_t i = 0; i < p1.balas.size(); i++) {
+		for (size_t i = 0; i < p1.balas.size(); i++) 
+		{
 			window.draw(p1.balas[i].corpo);
 		}
 	
+		for (size_t i = 0; i < inimigos.size(); i++)
+		{
+			window.draw(inimigos[i].corpo);
+		}
+
 		window.display();
 	}
 
