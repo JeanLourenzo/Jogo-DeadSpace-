@@ -9,7 +9,7 @@ Jogador::Jogador(sf::Texture *textura) {
 	this->HP = this->HPmax;
 	this->textura = textura;
 	this->corpo.setTexture(*textura);
-	this->corpo.setScale(0.1f, 0.1f);
+	this->corpo.setScale(0.05f, 0.05f);
 
 }
 /*

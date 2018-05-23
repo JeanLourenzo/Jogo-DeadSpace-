@@ -15,7 +15,7 @@ int main()
 
 	srand(time(NULL));
 
-	sf::RenderWindow window(sf::VideoMode(1000, 500), "Navy Attack");
+	sf::RenderWindow window(sf::VideoMode(1000, 500), "Space Pirates");
 	window.setFramerateLimit(60);
 
 
@@ -29,15 +29,20 @@ int main()
 	sf::Texture Bala1;
 	Bala1.loadFromFile("Imagens/bala1.png");
 
+	sf::Texture fundo;
+	fundo.loadFromFile("Imagens/space1.png");
+	Sprite background(fundo);
+	background.setPosition(-400,-350);
+	background.setScale(0.6f, 0.6f);
+
 
 	// Criando objeto jogador
 	Jogador p1(&NaveTexture);
 	int tempoAtirando = 20;
 
-	// Criando vetor para inimigos e o objeto inimigo
+	// Criando vetor para inimigos e tempo de spaw
+	int inimigoSpaw = 0;
 	std::vector <Inimigo> inimigos;
-	inimigos.push_back(Inimigo(&InimigoTexture, window.getSize()));
-
 
 
 	while (window.isOpen())
@@ -88,7 +93,7 @@ int main()
 
 		// Update do movimento das balas 
 		for (size_t i = 0; i < p1.balas.size(); i++)
-		{	
+		{
 			//Velocidade do tiro
 			p1.balas[i].corpo.move(20.0f, 0.f);
 
@@ -96,12 +101,61 @@ int main()
 			if (p1.balas[i].corpo.getPosition().x > window.getSize().x)
 			{
 				p1.balas.erase(p1.balas.begin() + i);
+				break;
 			}
+			
+			// Bala nas inimiga
+			for (size_t k = 0; k < inimigos.size(); k++)
+			{
+				// Apaga bala e inimigo por colisão
+				if (p1.balas[i].corpo.getGlobalBounds().intersects(inimigos[k].corpo.getGlobalBounds()))
+				{
+					inimigos.erase(inimigos.begin() + k);
+					p1.balas.erase(p1.balas.begin() + i);
+					break;
+
+				}
+
+			}
+		}		
+
+		// Spaw das inimiga
+		if (inimigoSpaw < 25)
+		{
+			inimigoSpaw++;
+		}
+
+		if (inimigoSpaw >= 25)
+		{
+			inimigos.push_back(Inimigo(&InimigoTexture, window.getSize()));
+			inimigoSpaw = 0; // Resetando
+		}
+
+
+		// Movimentando inimigo
+		for (size_t i = 0; i < inimigos.size(); i++)
+		{
+			inimigos[i].corpo.move(-6.0f, 0);
+
+			// Deletando inimigo por colisões ou fora da tela
+			if (inimigos[i].corpo.getPosition().x <= 0 - inimigos[i].corpo.getGlobalBounds().width)
+			{
+				inimigos.erase(inimigos.begin() + i);
+				break;
+			}
+
+			if (inimigos[i].corpo.getGlobalBounds().intersects(p1.corpo.getGlobalBounds()))
+			{
+				inimigos.erase(inimigos.begin() + i);
+				p1.HP--;
+				break;
+			}
+
 		}
 		
 		// Imprimindo tudo na tela
-
 		window.clear();
+		window.draw(background);
 		window.draw(p1.corpo);
 
 		for (size_t i = 0; i < p1.balas.size(); i++) 
