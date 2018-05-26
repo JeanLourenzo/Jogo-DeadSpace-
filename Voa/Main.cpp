@@ -19,26 +19,56 @@ int main()
 	window.setFramerateLimit(60);
 
 
-	// Lendo e iniciando texturas
+	// Lendo e iniciando texturas, e fonte
 	sf::Texture NaveTexture;
 	NaveTexture.loadFromFile("Imagens/Ship1.png");
 
 	sf::Texture InimigoTexture;
 	InimigoTexture.loadFromFile("Imagens/alien1.png");
-	
+
 	sf::Texture Bala1;
 	Bala1.loadFromFile("Imagens/bala1.png");
 
 	sf::Texture fundo;
 	fundo.loadFromFile("Imagens/space1.png");
 	Sprite background(fundo);
-	background.setPosition(-400,-350);
+	background.setPosition(-400, -350);
 	background.setScale(0.6f, 0.6f);
+
+	Font font;
+	font.loadFromFile("Fonts/Dosis-Light.ttf");
+
+	//Iniciando os textos dos placares
+	Text placar;
+	placar.setFont(font);
+	placar.setCharacterSize(20);
+	placar.setFillColor(Color::White);
+	placar.setPosition(10.f, 10.f);
+
+	Text gameOverTexto;
+	gameOverTexto.setFont(font);
+	gameOverTexto.setCharacterSize(30);
+	gameOverTexto.setFillColor(Color::Red);
+	gameOverTexto.setPosition(100.f, window.getSize().y / 2);
+	gameOverTexto.setString("GAME OVER!");
 
 
 	// Criando objeto jogador
 	Jogador p1(&NaveTexture);
 	int tempoAtirando = 20;
+	int score = 0;
+	// aqui
+
+	Text hpTexto;
+	hpTexto.setFont(font);
+	hpTexto.setCharacterSize(12);
+	hpTexto.setFillColor(Color::White);
+
+	Text inimigoHP_Texto;
+	inimigoHP_Texto.setFont(font);
+	inimigoHP_Texto.setCharacterSize(12);
+	inimigoHP_Texto.setFillColor(Color::White);
+
 
 	// Criando vetor para inimigos e tempo de spaw
 	int inimigoSpaw = 0;
@@ -63,6 +93,10 @@ int main()
 			p1.corpo.move(0.f, 10.f);
 		if (Keyboard::isKeyPressed(Keyboard::D))
 			p1.corpo.move(10.f, 0);
+
+		// Posição do texto e fazendo string
+		hpTexto.setPosition(p1.corpo.getPosition().x, p1.corpo.getPosition().y - hpTexto.getGlobalBounds().height);
+		hpTexto.setString("HP:" + std::to_string(p1.HP));
 
 
 		//Checando para o player não sair da janela
@@ -107,10 +141,19 @@ int main()
 			// Bala nas inimiga
 			for (size_t k = 0; k < inimigos.size(); k++)
 			{
-				// Apaga bala e inimigo por colisão
+				// Apaga bala e inimigo, por colisão
 				if (p1.balas[i].corpo.getGlobalBounds().intersects(inimigos[k].corpo.getGlobalBounds()))
 				{
-					inimigos.erase(inimigos.begin() + k);
+					//Inimigos tomando dano
+					if (inimigos[i].HP <= 1)
+					{
+						score += inimigos[k].HPMax;
+						inimigos.erase(inimigos.begin() + k);
+					}
+					else {
+						inimigos[k].HP--;
+					}
+
 					p1.balas.erase(p1.balas.begin() + i);
 					break;
 
@@ -120,12 +163,12 @@ int main()
 		}		
 
 		// Spaw das inimiga
-		if (inimigoSpaw < 25)
+		if (inimigoSpaw < 30)
 		{
 			inimigoSpaw++;
 		}
 
-		if (inimigoSpaw >= 25)
+		if (inimigoSpaw >= 30)
 		{
 			inimigos.push_back(Inimigo(&InimigoTexture, window.getSize()));
 			inimigoSpaw = 0; // Resetando
@@ -150,7 +193,8 @@ int main()
 				p1.HP--;
 				break;
 			}
-
+			//Placar Update
+			placar.setString("Score: " + std::to_string(score));
 		}
 		
 		// Imprimindo tudo na tela
@@ -158,15 +202,26 @@ int main()
 		window.draw(background);
 		window.draw(p1.corpo);
 
-		for (size_t i = 0; i < p1.balas.size(); i++) 
+		for (size_t i = 0; i < p1.balas.size(); i++)
 		{
 			window.draw(p1.balas[i].corpo);
 		}
-	
+
 		for (size_t i = 0; i < inimigos.size(); i++)
 		{
+
+			inimigoHP_Texto.setString("HP:" + std::to_string(inimigos[i].HP));
+			inimigoHP_Texto.setPosition(inimigos[i].corpo.getPosition().x, inimigos[i].corpo.getPosition().y - inimigoHP_Texto.getGlobalBounds().height);
+			window.draw(inimigoHP_Texto);
 			window.draw(inimigos[i].corpo);
+
 		}
+
+		window.draw(placar);
+		window.draw(hpTexto);
+
+		if (p1.HP <= 0)
+			window.draw(gameOverTexto);
 
 		window.display();
 	}
