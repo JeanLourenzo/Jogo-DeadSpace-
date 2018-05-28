@@ -305,16 +305,6 @@ inicio:
 		window.draw(hpTexto);
 		window.draw(bossHP);
 
-		if (cf.HP == 0) {
-			window.clear();
-			window.draw(winnerTexto);
-
-			if (delay1 == 200) {
-				goto inicio;
-			}
-
-			delay1++;
-		}
 
 		if (p1.HP <= 0 && cf.HP > 0){
 			window.draw(gameOverTexto);
@@ -325,6 +315,16 @@ inicio:
 			
 			delay++;
 
+		}
+
+		if (cf.HP <= 0) {
+
+			window.draw(winnerTexto);
+			if (delay == 200) {
+				goto inicio;
+			}
+
+			delay++;
 		}
 
 		window.display();
