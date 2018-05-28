@@ -1,4 +1,0 @@
-﻿  Main.cpp
-c:\users\unifjsilva\downloads\jogo-lab-master\voa\main.cpp(16): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-c:\users\unifjsilva\downloads\jogo-lab-master\voa\main.cpp(52): warning C4244: 'argumento': conversão de 'unsigned int' para 'float', possível perda de dados
-  Voa.vcxproj -> C:\Users\unifjsilva\Downloads\Jogo-Lab-master\Debug\Voa.exe

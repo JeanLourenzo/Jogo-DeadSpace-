@@ -1,0 +1,3 @@
+﻿  Inimigo.cpp
+d:\here\vai\vai\inimigo.cpp(11): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+  Vai.vcxproj -> D:\Here\Vai\Debug\Vai.exe
