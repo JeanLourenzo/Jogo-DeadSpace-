@@ -17,4 +17,4 @@ Clicar com direito no projeto 'Vai' > Propriedades > C/C++ > Geral > Diretórios
 
 Lib:
 Clicar com direito no projeto 'Vai' > Propriedades > Vinculador > Diretórios de bibliotecas Adicionais > Editar
-> Clieque em cima do nome e nos '..' > Vá até a pasta do jogo > sfml > Selecione a pasta 'lib' > Ok.
+> Clieque em cima do nome e nos '...' > Vá até a pasta do jogo > sfml > Selecione a pasta 'lib' > Ok.
