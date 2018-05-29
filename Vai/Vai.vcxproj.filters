@@ -18,16 +18,10 @@
     <ClCompile Include="Balas.cpp">
       <Filter>Arquivos de Recurso</Filter>
     </ClCompile>
-    <ClCompile Include="Chefe.cpp">
-      <Filter>Arquivos de Recurso</Filter>
-    </ClCompile>
-    <ClCompile Include="Inimigo.cpp">
-      <Filter>Arquivos de Recurso</Filter>
-    </ClCompile>
-    <ClCompile Include="Jogador.cpp">
-      <Filter>Arquivos de Recurso</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
+      <Filter>Arquivos de Recurso</Filter>
+    </ClCompile>
+    <ClCompile Include="Aliens.cpp">
       <Filter>Arquivos de Recurso</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,6 +36,9 @@
       <Filter>Arquivos de Recurso</Filter>
     </ClInclude>
     <ClInclude Include="Jogador.h">
+      <Filter>Arquivos de Recurso</Filter>
+    </ClInclude>
+    <ClInclude Include="Aliens.h">
       <Filter>Arquivos de Recurso</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,17 +1,20 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace sf;
 
-class Chefe
+class Chefe : public Aliens
 {
 public:
 
-	Chefe(Texture *texturas, Vector2u janelaTam);
+	Chefe(Texture *texturas, Vector2u janelaTam) : Aliens(texturas, janelaTam) {
+	}
+
+	String texto(){
+		return c;
+	}
 
 public:
-
-	Sprite corpo;
-	int HP;
-	int HPMax;
+	String c = "ATTACK!!";
 
 };

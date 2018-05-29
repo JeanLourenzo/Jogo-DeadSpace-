@@ -1,17 +1,19 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace sf;
 
-class Inimigo
-{
+class Inimigo : public Aliens {
 public:
 
-	Inimigo(Texture *texturas, Vector2u janelaTam);
-		
-public:
+	Inimigo(Texture *texturas, Vector2u janelaTam) : Aliens(texturas, janelaTam) {
+	}
+	
+	String texto() {
+		return i;
+	}
 
-	Sprite corpo;
-	int HP;
-	int HPMax;
+public:
+	String i = "Attack!!";
 
 };

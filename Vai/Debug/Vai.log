@@ -1,3 +1,8 @@
-﻿  Chefe.cpp
-d:\here\vai\vai\chefe.cpp(11): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-  Vai.vcxproj -> D:\Here\Vai\Debug\Vai.exe
+﻿  Aliens.cpp
+c:\users\heavenly\downloads\jogo-lab-master\vai\aliens.cpp(24): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+  Balas.cpp
+  Main.cpp
+c:\users\heavenly\downloads\jogo-lab-master\vai\main.cpp(59): warning C4244: 'argumento': conversão de 'unsigned int' para 'float', possível perda de dados
+c:\users\heavenly\downloads\jogo-lab-master\vai\main.cpp(66): warning C4244: 'argumento': conversão de 'unsigned int' para 'float', possível perda de dados
+  Gerando Código...
+  Vai.vcxproj -> C:\Users\Heavenly\Downloads\Jogo-Lab-master\Debug\Vai.exe
